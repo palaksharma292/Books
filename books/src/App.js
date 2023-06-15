@@ -3,13 +3,11 @@ import BookCreate from "./Components/BookCreate";
 //import BookList from "./Components/BookList";
 
 function App() {
-   const [books,setBooks]=useState([]);
-   const [id, setId]= useState(1);
+    const [books, setBooks] = useState([]);
 
-    const handleCreateSubmit=(title)=>{
-        const newBooks=[...books,{Title:title,key:id}];
+    const handleCreateSubmit = (title) => {
+        const newBooks = [...books, { Title: title, id: Math.round(Math.random() * 9999) }];
         setBooks(newBooks);
-        setId(id+1);
         console.log(books);
     };
 
