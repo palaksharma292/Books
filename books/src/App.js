@@ -12,6 +12,17 @@ function App() {
         setBooks(updatedBooks);
     }
 
+    const editBookById = (id, newTitle) => {
+        const updatedBooks = books.map((book) => {
+            if (book.id === id) {
+                return { ...book, Title: newTitle };
+            }
+
+            return (book);
+        });
+        setBooks(updatedBooks);
+    }
+
     const handleCreateSubmit = (title) => {
         const newBooks = [...books, { Title: title, id: Math.round(Math.random() * 9999) }];
         setBooks(newBooks);
@@ -20,7 +31,8 @@ function App() {
 
     return (
         <div className="app">
-            <BookList books={books} onDelete={deleteBookById} />
+            <h1>Reading List</h1>
+            <BookList books={books} onDelete={deleteBookById} onEdit={editBookById} />
             <BookCreate onSubmit={handleCreateSubmit} />
         </div>
     );
