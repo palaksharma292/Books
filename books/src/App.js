@@ -10,28 +10,28 @@ function App() {
     const fetchBooks=async()=>{
         let response=await axios.get('http://localhost:3001/books');
         setBooks(response.data);
+        console.log("get",response.data);
     }
     // USed to run code at specific instances, like: initial rendering
+    // Second argument '[]' means never called again after first render
+    // Second argument ''(nothing) means Called first render and every render after
+    // Second argument '[counter]' will be called first render and every render counter variable is changed
     useEffect(()=>{
         fetchBooks();
     }, []);
 
-    const deleteBookById = (id) => {
-        const updatedBooks = books.filter((book) => {
-            return book.id !== id;
-        });
-        setBooks(updatedBooks);
+    const deleteBookById = async(id) => {
+        let response= await axios.delete(`http://localhost:3001/books/${id}`);
+        console.log(response);
+        fetchBooks();
     }
 
-    const editBookById = (id, newTitle) => {
-        const updatedBooks = books.map((book) => {
-            if (book.id === id) {
-                return { ...book, Title: newTitle };
-            }
-
-            return (book);
+    const editBookById = async(id, newTitle) => {
+        let response= await axios.put(`http://localhost:3001/books/${id}`,{
+            Title: newTitle
         });
-        setBooks(updatedBooks);
+        console.log(response);
+        fetchBooks();
     }
 
     const handleCreateSubmit = async(Title) => {
@@ -39,8 +39,7 @@ function App() {
             Title
         });
         console.log(response);
-        const newBooks = [...books, response.data];
-        setBooks(newBooks);
+        fetchBooks();
     };
 
     return (
