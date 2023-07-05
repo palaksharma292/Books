@@ -1,11 +1,10 @@
 import { useEffect } from "react";
-import { useContext } from "react";
-import BooksContext from "./Context/books";
+import useBooksContext from "./Hooks/use-books-context";
 import BookCreate from "./Components/BookCreate";
 import BookList from "./Components/BookList";
 
 function App() {
-    const { fetchBooks } = useContext(BooksContext);
+    const { fetchBooks } = useBooksContext();
     // USed to run code at specific instances, like: initial rendering
     // Second argument '[]' means never called again after first render
     // Second argument ''(nothing) means Called first render and every render after
